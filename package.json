@@ -1,0 +1,27 @@
+{
+  "name": "chat-aflevering",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaeleSael/Chat-aflevering.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/KaeleSael/Chat-aflevering/issues"
+  },
+  "homepage": "https://github.com/KaeleSael/Chat-aflevering#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "firebase": "^13.2.0",
+    "pug": "^3.0.4"
+  }
+}
