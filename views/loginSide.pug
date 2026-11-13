@@ -1,0 +1,29 @@
+doctype html
+html
+    head
+        title Min chat
+        link(rel="stylesheet" href="/css/style.css")
+
+    body
+        main.login-page
+            h1 Velkommen til din chat
+
+            section.login-card
+                h2 Login her:
+
+                form(action="/login" method="POST")
+                    input(
+                        type="text"
+                        name="username"
+                        placeholder="Brugernavn"
+                        required
+                    )
+
+                    input(
+                        type="password"
+                        name="password"
+                        placeholder="Adgangskode"
+                        required
+                    )
+
+                    button(type="submit") login
