@@ -23,5 +23,6 @@
     "express-session": "^1.19.0",
     "firebase": "^13.2.0",
     "pug": "^3.0.4"
-  }
+  },
+  "devDependencies": {}
 }
