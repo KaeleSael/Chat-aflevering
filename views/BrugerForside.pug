@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title BrugerSide 
+        link(rel="stylesheet" href="css/style.css")
+
+    body
+        main.BrugerSide
+            h1 velkommen #{name}
+
+            section.Chat
+                h2 Dine chats: 
+
+                div.ChatListe
+                    if chats && chats.length > 0
+                        each chat in chats
+                            a(href="/chats/" + chat.id)
+                                button(type="button") #{chat.navn}
+                    else 
+                    button(type="button") chatNavn1 
+                    button(type="button") chatNavn2 
+                    button(type="button") chatNavn3 
