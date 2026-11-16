@@ -17,7 +17,7 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/nyChat', (req, res) => {
-    // kode til at oprette ny chat
+    // kode til at oprette ny chat  
 })
 app.listen(8010, () => {
     console.log('Serveren kører på port 8010');
