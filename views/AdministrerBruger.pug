@@ -1,0 +1,32 @@
+
+doctype html
+html
+    head
+        title Administrer brugere
+        link(rel="stylesheet" href="/css/style.css")
+
+    body
+        main.AdministrerBruger
+            h1 Administrer brugere
+
+            a(href="/forside") Tilbage til forsiden
+
+            section.BrugerListe
+                if brugere && brugere.length > 0
+                    each bruger in brugere
+                        div.Bruger
+                            h2= bruger.username
+                            p Bruger-ID: #{bruger.id}
+                            p Adgangsniveau: #{bruger.niveau}
+
+                            form(action="/brugere/" + bruger.id + "/niveau" method="POST")
+                                label(for="niveau-" + bruger.id) Ændr adgangsniveau:
+
+                                select(name="niveau" id="niveau-" + bruger.id)
+                                    option(value="1" selected=bruger.niveau === 1) Niveau 1
+                                    option(value="2" selected=bruger.niveau === 2) Niveau 2
+                                    option(value="3" selected=bruger.niveau === 3) Niveau 3
+
+                                button(type="submit") Gem ændringer
+                else
+                    p Der er ingen brugere at vise.

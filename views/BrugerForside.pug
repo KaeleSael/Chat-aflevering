@@ -1,22 +1,32 @@
+
 doctype html
 html
     head
-        title BrugerSide 
-        link(rel="stylesheet" href="css/style.css")
+        title Brugerforside
+        link(rel="stylesheet" href="/css/style.css")
 
     body
         main.BrugerSide
-            h1 velkommen #{name}
+            h1 Chat Oversigt
 
             section.Chat
-                h2 Dine chats: 
+                h2 Dine chats:
+
+                div.FunktionListe
+                    a.sideButton(href="/chats/opret") Opret ny chat
+                    a.sideButton(href="/beskeder") Se alle dine beskeder
+
+                    if brugerNiveau === 3
+                        a.sideButton(href="/brugere") Administrer brugere
+
+                    form(action="/logout" method="POST")
+                        button.sideButton(type="submit") Log ud
+
+                h2 Dine chats:
 
                 div.ChatListe
                     if chats && chats.length > 0
                         each chat in chats
-                            a(href="/chats/" + chat.id)
-                                button(type="button") #{chat.navn}
-                    else 
-                    button(type="button") chatNavn1 
-                    button(type="button") chatNavn2 
-                    button(type="button") chatNavn3 
+                            a.chatButton(href="/chats/" + chat.id)= chat.navn
+                    else
+                        p Du har endnu ikke skrevet nogen chats.

@@ -1,7 +1,8 @@
+
 doctype html
 html
     head
-        title Min chat
+        title Login
         link(rel="stylesheet" href="/css/style.css")
 
     body
@@ -10,6 +11,9 @@ html
 
             section.login-card
                 h2 Login her:
+
+                if fejlbesked
+                    p.fejlbesked= fejlbesked
 
                 form(action="/login" method="POST")
                     input(
@@ -26,4 +30,7 @@ html
                         required
                     )
 
-                    button(type="submit") login
+                    button(type="submit") Login
+
+                p Har du ikke en bruger?
+                a(href="/opretBruger") Opret bruger

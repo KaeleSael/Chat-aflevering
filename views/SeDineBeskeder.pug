@@ -1,0 +1,24 @@
+ 
+doctype html
+html
+    head
+        title Mine beskeder
+        link(rel="stylesheet" href="/css/style.css")
+
+    body
+        main.BrugerSide
+            h1 Mine beskeder
+
+            section.Chat
+                a(href="/forside") Tilbage til forsiden
+
+                div.BeskedListe
+                    if beskeder && beskeder.length > 0
+                        each besked in beskeder
+                            div.Besked
+                                p= besked.tekst
+                                p Chat: #{besked.chatNavn}
+                                small Skrevet af: #{besked.ejerNavn}
+                                small= besked.dato
+                    else
+                        p Du har endnu ikke skrevet nogen beskeder.

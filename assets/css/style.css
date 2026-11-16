@@ -1,32 +1,158 @@
-/* fælles for alle sider */
+
+/* ================================================================
+   FÆLLES FOR ALLE SIDER
+================================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     background-color: #f2f2f2;
     font-family: Arial, sans-serif;
-}
-
-/* == LoginSide ================================================== */
-.login-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 150px 10px 20px;
+    color: #222;
 }
 
 h1 {
-    font-size: 42px;
+    font-size: clamp(28px, 5vw, 42px);
     font-style: italic;
     font-weight: bold;
+    text-align: center;
     margin: 10px 0 35px;
 }
 
-.login-card {
-    background-color: white;
-    width: 350px;
-    padding: 35px 50px;
-    border-radius: 12px;
+h2 {
+    font-size: 18px;
+    margin: 15px 0 25px;
+}
 
+a {
+    color: inherit;
+}
+
+
+/* ================================================================
+   FÆLLES KNAPPER OG LINKS
+================================================================ */
+
+.sideButton,
+.redButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1 1 130px;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.sideButton {
+    background-color: #11dc2c;
+}
+
+.sideButton:hover {
+    background-color: #0b128c;
+    transform: translateY(-2px);
+}
+
+.redButton {
+    background-color: #f61124;
+}
+
+.redButton:hover {
+    background-color: #faa70b;
+    transform: translateY(-2px);
+}
+
+
+/* ================================================================
+   FÆLLES FORMULARER
+================================================================ */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border: 2px solid #3399ff;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+form {
+    width: 100%;
+}
+
+form button {
+    cursor: pointer;
+}
+
+
+/* ================================================================
+   FÆLLES HVIDE BOKSE
+================================================================ */
+
+.Chat,
+.Funktioner,
+.login-card,
+.ChatAdministration,
+.AdministrerBruger,
+.BrugerListe {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ================================================================
+   LOGIN SIDE
+================================================================ */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 150px 20px 30px;
+}
+
+.login-card {
+    width: min(100%, 450px);
+    padding: 35px 50px;
 
     display: flex;
     flex-direction: column;
@@ -34,88 +160,396 @@ h1 {
 }
 
 .login-card h2 {
-    font-size: 18px;
-    margin: 15px 0 28px;
+    margin-bottom: 28px;
 }
 
 .login-card form {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.login-card input {
-    width: 100%;
-    height: 40px;
-    padding: 10px 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
 .login-card button {
     height: 40px;
     margin-top: 13px;
+
     background-color: #20aa4b;
     color: white;
+
     font-size: 15px;
     font-weight: bold;
+
     border: none;
     border-radius: 8px;
-    cursor: pointer;
+
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* == BrugerSide ================================================== */
+.login-card button:hover {
+    background-color: #188c3c;
+}
+
+.fejlbesked {
+    color: #d32f2f;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+/* ================================================================
+   BRUGERFORSIDE
+================================================================ */
+
 .BrugerSide {
     min-height: 100vh;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 150px 10px 20px;
+
+    padding: 30px 20px;
 }
 
-.Chat {
-    background-color: white;
-    width: 350px;
-    padding: 35px 50px;
-    border-radius: 12px;
+.BrugerSide .Chat {
+    width: min(100%, 750px);
+    padding: 30px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .Chat h2 {
-    font-size: 18px;
-    margin: 15px 0 28px;
+    text-align: center;
 }
+
+
+/* Funktionsknapper */
+
+.FunktionListe {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/* Logout-formularen skal opføre sig som de andre knapper */
+
+.FunktionListe form {
+    display: flex;
+    flex: 1 1 130px;
+    min-width: 0;
+}
+
+.FunktionListe form button {
+    width: 100%;
+}
+
+
+/* Chatliste */
 
 .ChatListe {
     width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+/* De enkelte chatknapper */
+
+.chatButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 45px;
+    padding: 12px 16px;
+
+    background-color: #e6e6e6;
+    color: #222;
+
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.chatButton:hover {
+    background-color: #d5d5d5;
+    transform: translateX(3px);
+}
+
+
+/* ================================================================
+   CHAT SIDE
+================================================================ */
+
+
+/* CHAT SIDE */
+.ChatSide {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.ChatContainer {
+    width: min(100%, 850px);
+    min-height: 75vh;
+    max-height: 850px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ØVERSTE FUNKTIONER */
+.ChatHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.ChatHeader h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 28px;
+}
+
+.ChatFunktioner {
+    display: flex;
+    gap: 10px;
+}
+
+.ChatFunktioner form {
+    width: auto;
+}
+
+.ChatDivider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* BESKEDER */
+.BeskedListe {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding: 10px 5px;
+}
+
+.Besked {
+    max-width: 70%;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 15px;
+    overflow-wrap: anywhere;
+}
+
+.Besked p {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.Besked small {
+    display: block;
+    font-size: 11px;
+    color: #666;
+}
+
+/* DINE BESKEDER */
+.MinBesked {
+    align-self: flex-end;
+    background-color: #d8f8df;
+    border-bottom-right-radius: 3px;
+}
+
+/* ANDRES BESKEDER */
+.AndreBesked {
+    align-self: flex-start;
+    background-color: #eaeaea;
+    border-bottom-left-radius: 3px;
+}
+
+.IngenBeskeder {
+    text-align: center;
+    color: #777;
+    margin: auto;
+}
+
+/* SKRIVEFELT */
+.NyBesked {
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    margin-top: 15px;
+}
+
+.NyBesked form {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.NyBesked textarea {
+    flex: 1;
+    min-height: 45px;
+    max-height: 120px;
+    resize: vertical;
+}
+
+.NyBesked button {
+    flex: 0 0 90px;
+    min-height: 45px;
+}
+
+/* Chat administration */
+
+.ChatAdministration {
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.ChatAdministration form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.ChatAdministration button {
+    min-height: 40px;
+}
+
+
+/* ================================================================
+   SE DINE BESKEDER
+================================================================ */
+
+.BeskedListe {
+    width: 100%;
+}
+
+
+/* ================================================================
+   ADMINISTRER BRUGERE
+================================================================ */
+
+.AdministrerBruger {
+    width: min(100% - 40px, 850px);
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.AdministrerBruger > a {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.BrugerListe {
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    padding: 20px;
 }
 
-.ChatListe a {
-    text-decoration: none;
-    width: 100%;
-}
-
-.ChatListe button {
-    width: 100%;
-    height: 40px;
-    background-color: #20aa4b;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    border: none;
+.Bruger {
+    background-color: #f2f2f2;
+    padding: 18px;
     border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
 }
 
-.ChatListe button :hover{
-    background-color: #1a8f3e;
+.Bruger h2 {
+    margin-top: 0;
+}
+
+.Bruger p {
+    font-size: 14px;
+}
+
+.Bruger form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.Bruger select {
+    flex: 1 1 150px;
+}
+
+.Bruger button {
+    min-height: 40px;
+}
+
+
+/* ================================================================
+   RESPONSIVT DESIGN - MOBIL
+================================================================ */
+
+@media (max-width: 600px) {
+
+    .login-page {
+        padding-top: 80px;
+    }
+
+    .login-card {
+        padding: 25px;
+    }
+
+    .BrugerSide {
+        padding: 20px 12px;
+    }
+
+    .BrugerSide .Chat {
+        padding: 20px;
+    }
+
+    .FunktionListe {
+        flex-direction: column;
+    }
+
+    .FunktionListe form {
+        flex-basis: auto;
+        width: 100%;
+    }
+
+    .sideButton,
+    .redButton {
+        flex-basis: auto;
+        width: 100%;
+    }
+
+    .ChatSide {
+        width: calc(100% - 24px);
+    }
+
+    .AdministrerBruger {
+        width: calc(100% - 24px);
+        padding: 20px;
+    }
+
+    .Bruger form {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

@@ -1,0 +1,30 @@
+[
+    {
+        "id": 10,
+        "username": "Minik",
+        "password": "1234",
+        "oprettelsesdato": "2026-11-16",
+        "niveau": 3
+    },
+    {
+        "id": 11,
+        "username": "Kasper",
+        "password": "1234",
+        "oprettelsesdato": "2026-11-16",
+        "niveau": 2
+    },
+    {
+        "id": 12,
+        "username": "Kaj",
+        "password": "1234",
+        "oprettelsesdato": "2026-11-16",
+        "niveau": 1
+    },
+    {
+        "id": 13,
+        "username": "Johan",
+        "password": "1234",
+        "oprettelsesdato": "2026-11-16T10:29:17.079Z",
+        "niveau": 1
+    }
+]

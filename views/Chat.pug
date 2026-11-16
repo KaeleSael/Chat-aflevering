@@ -1,0 +1,43 @@
+
+
+doctype html
+html
+    head
+        title= chat.navn
+        link(rel="stylesheet" href="/css/style.css")
+    body
+        main.ChatSide
+            section.ChatContainer
+
+                //- Øverste funktioner
+                header.ChatHeader
+                    a.sideButton(href="/forside") Tilbage
+                    h1= chat.navn
+
+                    if brugerNiveau >= 2 && (brugerNiveau === 3 || chat.ejerId === brugerId)
+                        div.ChatFunktioner
+                            form(action="/chats/" + chat.id + "/rediger" method="POST")
+                                button.sideButton(type="submit") Rediger chat
+
+                            form(action="/chats/" + chat.id + "/slet" method="POST")
+                                button.redButton(type="submit") Slet chat
+
+                //- Linje mellem funktioner og beskeder
+                hr.ChatDivider
+
+                //- Beskeder
+                section.BeskedListe
+                    if chat.beskeder && chat.beskeder.length > 0
+                        each besked in chat.beskeder
+                            div(class=besked.ejerId === brugerId ? "Besked MinBesked" : "Besked AndreBesked")
+                                p= besked.tekst
+                                small
+                                    | #{besked.ejerNavn} · #{besked.dato}
+                    else
+                        p.IngenBeskeder Der er endnu ingen beskeder.
+
+                //- Skrivefelt
+                footer.NyBesked
+                    form(action="/chats/" + chat.id + "/messages" method="POST")
+                        textarea(name="tekst" placeholder="Skriv en besked..." required)
+                        button.sideButton(type="submit") Send
