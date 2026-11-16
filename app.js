@@ -1,6 +1,9 @@
+// app.js
 import express from 'express';
 import fs from 'node:fs';
 import session from 'express-session';
+import { opretBruger } from './Controllers/BrugerController.js';
+import { Bruger } from './model/Bruger.js';
 
 const app = express();
 app.use(express.static('assets'));
@@ -107,7 +110,12 @@ app.get('/', (req, res) => {
     res.render('loginSide');
 });
 
-// Behandl login
+app.get('/opretBruger', (req,res)=>{
+    res.render('opretBruger');
+})
+
+app.post('/opretBruger', opretBruger);
+
 app.post('/login', (req, res) => {
     const brugere = hentBrugere();
 
