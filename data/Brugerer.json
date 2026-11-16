@@ -13,5 +13,10 @@
     "brugerNavn": "blablablablablabla",
     "password": "123",
     "id": 3
+  },
+  {
+    "brugerNavn": "test1",
+    "password": "test",
+    "id": 1
   }
 ]
