@@ -13,7 +13,9 @@ html
                 h2 Dine chats:
 
                 div.FunktionListe
-                    a.sideButton(href="/chats/opret") Opret ny chat
+                    form(action="/logout" method="POST")
+                        button.sideButton(type="nychat") Ny Chat
+
                     a.sideButton(href="/beskeder") Se alle dine beskeder
 
                     if brugerNiveau === 3
