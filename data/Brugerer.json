@@ -1,0 +1,17 @@
+[
+  {
+    "brugerNavn": "kBrinkkjaer",
+    "password": "Brinkkjaer1919",
+    "id": 1
+  },
+  {
+    "brugerNavn": "Kasper2",
+    "password": "Kasper2",
+    "id": 2
+  },
+  {
+    "brugerNavn": "blablablablablabla",
+    "password": "123",
+    "id": 3
+  }
+]

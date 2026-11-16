@@ -1,15 +1,18 @@
+// BrugerController.js
 // skal hente info fra View, sender update til Brugermodel
-import { response } from "express";
-import { Bruger } from "../model/Bruger";
+import { Bruger } from "../model/Bruger.js";
 // modtager besked fra modelbruger, sender Update til view 
 
 export async function opretBruger(req, res) {
     try {
-        const { brugernavn, password } = req.body;
+        const { username, password, gentagPassword } = req.body;
+        if (password != gentagPassword){
+                return res.status(400).send('Adgangskode matcher ikke!')
+        }
 
-        await Bruger.opretBruger(brugernavn, password);
+        await Bruger.opretBruger(username, password);
 
-        res.redirect('/login');
+        res.redirect('/');
     } catch (error) {
         console.error('fejl ved oprettelse af bruger', error);
         res.status(500).send('Kunne ikke oprette brugeren');

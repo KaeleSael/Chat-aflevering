@@ -1,9 +1,7 @@
-// En ejer består af et 
-// id, et brugernavn og et kodeord samt en oprettelsesdato og brugerniveau (1-3)
-
+// Bruger.js
 // == Imports =========================================================
 // import { json } from "express";
-import fs from ('node:fs/promises');
+import fs from 'node:fs/promises';
 
 const filsti = './data/Brugerer.json';
 
@@ -12,13 +10,12 @@ export class Bruger {
     constructor(brugerNavn, password) {
         this.brugerNavn = brugerNavn;
         this.password = password;
-        this.id = unikId
-        unikId++;
+        this.id = Bruger.unikId++;
     }
 
     static async hentAlle() {
         try {
-            const data = await fs.readFile();
+            const data = await fs.readFile(filsti, 'utf8');
             return JSON.parse(data);
         } catch (error) {
             return []; // retunere tomt array hvis løber ind i fejl
@@ -27,9 +24,16 @@ export class Bruger {
 
     static async opretBruger(brugerNavn, password) {
         const brugere = await this.hentAlle();
+
+        const findesAllerede = brugere.some(b=>b.brugerNavn === brugerNavn);
+        if (findesAllerede){
+            throw new Error('Brugernavnet er allerede optaget');
+        }
+
         const nyBruger = new Bruger(brugerNavn, password);
         brugere.push(nyBruger);
-        await fs.writefie(filsti, JSON.stringify(brugere, null, 2));
+
+        await fs.writeFile(filsti, JSON.stringify(brugere, null, 2));
 
         return nyBruger;
     }
