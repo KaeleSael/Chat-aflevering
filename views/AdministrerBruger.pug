@@ -1,4 +1,3 @@
-
 doctype html
 html
     head
@@ -6,10 +5,12 @@ html
         link(rel="stylesheet" href="/css/style.css")
 
     body
-        main.AdministrerBruger
-            h1 Administrer brugere
+        main.SideContainer
+            header.SideHeader
+                    a.sideButton(href="/forside") Tilbage til forsiden
+                    h1 Administrer brugere
 
-            a(href="/forside") Tilbage til forsiden
+            hr.SideDivider
 
             section.BrugerListe
                 if brugere && brugere.length > 0
@@ -27,6 +28,6 @@ html
                                     option(value="2" selected=bruger.niveau === 2) Niveau 2
                                     option(value="3" selected=bruger.niveau === 3) Niveau 3
 
-                                button(type="submit") Gem ændringer
+                                button.sideButton(type="submit") Gem ændringer
                 else
                     p Der er ingen brugere at vise.

@@ -1,4 +1,3 @@
- 
 doctype html
 html
     head
@@ -6,19 +5,26 @@ html
         link(rel="stylesheet" href="/css/style.css")
 
     body
-        main.BrugerSide
-            h1 Mine beskeder
+        main.SideContainer
+            header.SideHeader
+                    a.sideButton(href="/forside") Tilbage til forsiden
+                    h1 Mine beskeder
 
-            section.Chat
-                a(href="/forside") Tilbage til forsiden
+            hr.SideDivider
 
-                div.BeskedListe
-                    if beskeder && beskeder.length > 0
-                        each besked in beskeder
-                            div.Besked
-                                p= besked.tekst
-                                p Chat: #{besked.chatNavn}
-                                small Skrevet af: #{besked.ejerNavn}
+            section.MineBeskederListe
+                if beskeder && beskeder.length > 0
+                    each besked in beskeder
+                        div.MineBeskedKort
+                            div.MineBeskedHeader
+                                h2= besked.chatNavn
                                 small= besked.dato
-                    else
+
+                            p= besked.tekst
+
+                            small.BeskedAfsender
+                                | Skrevet af: #{besked.ejerNavn}
+                else
+                    div.IngenChats
+                        h2 Ingen beskeder endnu
                         p Du har endnu ikke skrevet nogen beskeder.

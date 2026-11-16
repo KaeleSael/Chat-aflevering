@@ -1,7 +1,7 @@
 
-/* ================================================================
-   FÆLLES FOR ALLE SIDER
-================================================================ */
+/* =========================================================
+   GENERELT
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -9,158 +9,148 @@
 
 body {
     margin: 0;
-    background-color: #f2f2f2;
+    padding: 0;
     font-family: Arial, sans-serif;
-    color: #222;
+    background-color: #f2f4f5;
+    color: #333;
 }
 
-h1 {
-    font-size: clamp(28px, 5vw, 42px);
-    font-style: italic;
-    font-weight: bold;
-    text-align: center;
-    margin: 10px 0 35px;
+h1, h2, h3, p {
+    margin-top: 0;
 }
 
-h2 {
-    font-size: 18px;
-    margin: 15px 0 25px;
+button,
+input,
+textarea,
+select {
+    font: inherit;
 }
 
 a {
+    text-decoration: none;
     color: inherit;
 }
 
 
-/* ================================================================
-   FÆLLES KNAPPER OG LINKS
-================================================================ */
+/* =========================================================
+   FÆLLES SIDEOPBYGNING
+========================================================= */
+
+.SideContainer {
+    width: min(1100px, calc(100% - 60px));
+    min-height: 650px;
+    margin: 40px auto;
+    padding: 35px 40px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+.SideHeader {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+}
+
+.SideHeader h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.SideHeader > a.sideButton {
+    justify-self: start;
+}
+
+.SideHeaderActions {
+    display: flex;
+    justify-self: end;
+    align-items: center;
+    gap: 10px;
+}
+
+.SideHeaderActions form {
+    width: auto;
+    margin: 0;
+}
+
+.SideHeaderActions .sideButton,
+.SideHeaderActions .redButton {
+    flex: 0 0 150px;
+}
+
+
+
+/* =========================================================
+   KNAPPER
+========================================================= */
 
 .sideButton,
 .redButton {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-
-    flex: 1 1 130px;
-    min-width: 0;
+    padding: 11px 18px;
     min-height: 42px;
-    padding: 10px;
-
+    border: none;
+    border-radius: 7px;
     color: white;
-
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;
-
-    border: none;
-    border-radius: 8px;
-
     cursor: pointer;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
-
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 .sideButton {
-    background-color: #11dc2c;
+    background-color: #23d82c;
 }
 
 .sideButton:hover {
-    background-color: #0b128c;
-    transform: translateY(-2px);
+    background-color: #16a324;
 }
 
 .redButton {
-    background-color: #f61124;
+    background-color: #d94b4b;
 }
 
 .redButton:hover {
-    background-color: #faa70b;
-    transform: translateY(-2px);
+    background-color: #b83b3b;
 }
 
-
-/* ================================================================
-   FÆLLES FORMULARER
-================================================================ */
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 10px 14px;
-
-    border: 1px solid #ddd;
-    border-radius: 8px;
-
-    font-family: Arial, sans-serif;
-    font-size: 15px;
+.TilbageKnap {
+    margin-right: auto;
+    background-color: #b83b3b;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border: 2px solid #3399ff;
-}
-
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-form {
-    width: 100%;
-}
-
-form button {
-    cursor: pointer;
-}
-
-
-/* ================================================================
-   FÆLLES HVIDE BOKSE
-================================================================ */
-
-.Chat,
-.Funktioner,
-.login-card,
-.ChatAdministration,
-.AdministrerBruger,
-.BrugerListe {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-}
-
-
-/* ================================================================
-   LOGIN SIDE
-================================================================ */
+/* =========================================================
+   LOGIN
+========================================================= */
 
 .login-page {
-    min-height: 100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 70px 20px;
+}
 
-    padding: 150px 20px 30px;
+.login-page h1 {
+    margin-bottom: 35px;
+    text-align: center;
 }
 
 .login-card {
-    width: min(100%, 450px);
-    padding: 35px 50px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 35px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
 .login-card h2 {
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 
 .login-card form {
@@ -169,387 +159,535 @@ form button {
     gap: 15px;
 }
 
+.login-card input,
+.NyChatForm input,
+.OpretBrugerForm input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    outline: none;
+}
+
+.login-card input:focus,
+.NyChatForm input:focus,
+.OpretBrugerForm input:focus,
+.NyBesked textarea:focus {
+    border-color: #23d82c;
+}
+
 .login-card button {
-    height: 40px;
-    margin-top: 13px;
-
-    background-color: #20aa4b;
-    color: white;
-
-    font-size: 15px;
-    font-weight: bold;
-
+    min-height: 42px;
     border: none;
-    border-radius: 8px;
-
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    background-color: #23d82c;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .login-card button:hover {
-    background-color: #188c3c;
+    background-color: #16a324;
+}
+
+.login-card p {
+    margin: 20px 0 8px;
+}
+
+.login-card a {
+    color: #23d82c;
+    font-weight: bold;
 }
 
 .fejlbesked {
-    color: #d32f2f;
-    font-size: 14px;
-    text-align: center;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #ffe5e5;
+    color: #b83b3b;
 }
 
 
-/* ================================================================
+/* =========================================================
    BRUGERFORSIDE
-================================================================ */
-
-.BrugerSide {
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 30px 20px;
-}
-
-.BrugerSide .Chat {
-    width: min(100%, 750px);
-    padding: 30px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.Chat h2 {
-    text-align: center;
-}
-
-
-/* Funktionsknapper */
-
-.FunktionListe {
-    width: 100%;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-/* Logout-formularen skal opføre sig som de andre knapper */
-
-.FunktionListe form {
-    display: flex;
-    flex: 1 1 130px;
-    min-width: 0;
-}
-
-.FunktionListe form button {
-    width: 100%;
-}
-
-
-/* Chatliste */
-
-.ChatListe {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-/* De enkelte chatknapper */
-
-.chatButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 100%;
-    min-height: 45px;
-    padding: 12px 16px;
-
-    background-color: #e6e6e6;
-    color: #222;
-
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.chatButton:hover {
-    background-color: #d5d5d5;
-    transform: translateX(3px);
-}
-
-
-/* ================================================================
-   CHAT SIDE
-================================================================ */
-
-
-/* CHAT SIDE */
-.ChatSide {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 20px;
-}
-
-.ChatContainer {
-    width: min(100%, 850px);
-    min-height: 75vh;
-    max-height: 850px;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.08);
-}
-
-/* ØVERSTE FUNKTIONER */
-.ChatHeader {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.ChatHeader h1 {
-    flex: 1;
-    margin: 0;
-    font-size: 28px;
-}
+========================================================= */
 
 .ChatFunktioner {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
 }
 
-.ChatFunktioner form {
-    width: auto;
+.ChatOversigtIndhold h2 {
+    margin-bottom: 20px;
 }
 
-.ChatDivider {
-    width: 100%;
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-/* BESKEDER */
-.BeskedListe {
-    flex: 1;
+.ChatListe {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    overflow-y: auto;
+}
+
+.chatButton {
+    display: block;
+    width: 100%;
+    padding: 18px 20px;
+    border: 1px solid #e2e2e2;
+    border-radius: 9px;
+    background-color: #f7f7f7;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.chatButton:hover {
+    background-color: #eaeaea;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.ChatSide {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.ChatContainer {
+    display: flex;
+    flex-direction: column;
+    width: min(1000px, 100%);
+    height: 750px;
+    padding: 30px 35px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ChatContainer .SideHeader {
+    flex-shrink: 0;
+}
+
+.ChatContainer .SideDivider {
+    flex-shrink: 0;
+    margin: 20px 0;
+}
+
+.BeskedListe {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    min-height: 0;
     padding: 10px 5px;
+    overflow-y: auto;
 }
 
 .Besked {
     max-width: 70%;
-    width: fit-content;
-    padding: 10px 15px;
-    border-radius: 15px;
+    padding: 12px 16px;
+    border-radius: 12px;
     overflow-wrap: anywhere;
 }
 
 .Besked p {
-    margin: 0 0 6px;
-    font-size: 15px;
+    margin: 0 0 8px;
+    line-height: 1.5;
 }
 
 .Besked small {
-    display: block;
-    font-size: 11px;
-    color: #666;
+    color: #777;
+    font-size: 12px;
 }
 
-/* DINE BESKEDER */
 .MinBesked {
     align-self: flex-end;
-    background-color: #d8f8df;
-    border-bottom-right-radius: 3px;
+    background-color: #d9f5e6;
 }
 
-/* ANDRES BESKEDER */
 .AndreBesked {
     align-self: flex-start;
-    background-color: #eaeaea;
-    border-bottom-left-radius: 3px;
+    background-color: #f0f0f0;
 }
 
 .IngenBeskeder {
-    text-align: center;
     color: #777;
+    text-align: center;
     margin: auto;
 }
 
-/* SKRIVEFELT */
 .NyBesked {
-    padding-top: 15px;
-    border-top: 1px solid #ddd;
-    margin-top: 15px;
+    flex-shrink: 0;
+    margin-top: 20px;
 }
 
 .NyBesked form {
     display: flex;
     align-items: flex-end;
-    gap: 10px;
+    gap: 12px;
 }
 
 .NyBesked textarea {
     flex: 1;
     min-height: 45px;
     max-height: 120px;
+    padding: 12px;
     resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    outline: none;
 }
 
 .NyBesked button {
-    flex: 0 0 90px;
-    min-height: 45px;
-}
-
-/* Chat administration */
-
-.ChatAdministration {
-    padding: 25px;
-    margin-top: 20px;
-}
-
-.ChatAdministration form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.ChatAdministration button {
-    min-height: 40px;
+    flex-shrink: 0;
 }
 
 
-/* ================================================================
-   SE DINE BESKEDER
-================================================================ */
-
-.BeskedListe {
-    width: 100%;
-}
-
-
-/* ================================================================
+/* =========================================================
    ADMINISTRER BRUGERE
-================================================================ */
-
-.AdministrerBruger {
-    width: min(100% - 40px, 850px);
-    margin: 30px auto;
-    padding: 30px;
-}
-
-.AdministrerBruger > a {
-    display: inline-block;
-    margin-bottom: 20px;
-}
+========================================================= */
 
 .BrugerListe {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-
-    padding: 20px;
+    gap: 18px;
 }
 
 .Bruger {
-    background-color: #f2f2f2;
-    padding: 18px;
-    border-radius: 8px;
+    padding: 22px 25px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background-color: #f7f7f7;
 }
 
 .Bruger h2 {
-    margin-top: 0;
+    margin-bottom: 12px;
 }
 
 .Bruger p {
-    font-size: 14px;
+    margin-bottom: 8px;
 }
 
 .Bruger form {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.Bruger select,
+.NyChatForm select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+/* =========================================================
+   OPRET NY CHAT
+========================================================= */
+
+.NyChatIndhold {
+    width: 100%;
+    max-width: 750px;
+}
+
+.NyChatIndhold h2,
+.OpretBrugerIndhold h2 {
+    margin-bottom: 25px;
+}
+
+.NyChatForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.NyChatForm label,
+.OpretBrugerForm label {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.NyChatForm select {
+    min-height: 150px;
+}
+
+.NyChatForm button {
+    align-self: flex-start;
+    min-width: 150px;
+    margin-top: 15px;
+}
+
+.Hjaelpetekst {
+    margin: 0;
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   OPRET BRUGER
+========================================================= */
+
+.OpretBrugerIndhold {
+    width: 100%;
+    max-width: 550px;
+}
+
+.OpretBrugerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.OpretBrugerForm button {
+    align-self: flex-start;
+    min-width: 150px;
+    margin-top: 15px;
+}
+
+
+/* =========================================================
+   MINE BESKEDER
+========================================================= */
+
+.MineBeskederListe {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.MineBeskedKort {
+    width: 100%;
+    padding: 22px 25px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    overflow-wrap: anywhere;
+}
+
+.MineBeskedHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.MineBeskedHeader h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.MineBeskedHeader small,
+.BeskedAfsender {
+    color: #777;
+    font-size: 13px;
+}
+
+.MineBeskedKort > p {
+    margin: 0 0 18px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.BeskedAfsender {
+    display: block;
+}
+
+.IngenChats {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+.IngenChats p {
+    margin-bottom: 0;
+    color: #777;
+}
+
+
+/* CHAT HEADER */
+
+.ChatSideHeader {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.ChatSideHeader h1 {
+    text-align: center;
+}
+
+.ChatSideHeader > .sideButton {
+    justify-self: start;
+}
+
+.ChatHeaderSpacer {
+    justify-self: end;
+}
+
+/* CHAT MENU */
+
+.ChatMenu {
+    position: relative;
+    justify-self: end;
+}
+
+.ChatMenu summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 7px;
+    background-color: #f0f0f0;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+}
+
+.ChatMenu summary::-webkit-details-marker {
+    display: none;
+}
+
+.ChatMenu summary:hover {
+    background-color: #e2e2e2;
+}
+
+.ChatMenuIndhold {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 170px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.ChatMenuIndhold form {
+    width: 100%;
+    margin: 0;
+}
+
+.ChatMenuIndhold button {
+    width: 100%;
+}
+
+
+/* =========================================================
+   REDIGER CHAT POPUP
+========================================================= */
+
+.ChatDialog {
+    width: min(550px, calc(100% - 40px));
+    max-height: 85vh;
+    padding: 30px;
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ChatDialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ChatDialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ChatDialogHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ChatDialogHeader h2 {
+    margin: 0;
+}
+
+.LukDialog {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 7px;
+    background-color: #eee;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.LukDialog:hover {
+    background-color: #ddd;
+}
+
+.ChatDialog input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.ChatDialog h3 {
+    margin: 15px 0 0;
+    font-size: 16px;
+}
+
+.ChatMedlemmerListe {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.ChatMedlem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    background-color: #f7f7f7;
+}
+
+.FjernMedlem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #d94b4b;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.ChatDialog select {
+    width: 100%;
+    min-height: 130px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.ChatDialogFooter {
+    display: flex;
+    justify-content: flex-end;
     gap: 10px;
-}
-
-.Bruger select {
-    flex: 1 1 150px;
-}
-
-.Bruger button {
-    min-height: 40px;
-}
-
-
-/* ================================================================
-   RESPONSIVT DESIGN - MOBIL
-================================================================ */
-
-@media (max-width: 600px) {
-
-    .login-page {
-        padding-top: 80px;
-    }
-
-    .login-card {
-        padding: 25px;
-    }
-
-    .BrugerSide {
-        padding: 20px 12px;
-    }
-
-    .BrugerSide .Chat {
-        padding: 20px;
-    }
-
-    .FunktionListe {
-        flex-direction: column;
-    }
-
-    .FunktionListe form {
-        flex-basis: auto;
-        width: 100%;
-    }
-
-    .sideButton,
-    .redButton {
-        flex-basis: auto;
-        width: 100%;
-    }
-
-    .ChatSide {
-        width: calc(100% - 24px);
-    }
-
-    .AdministrerBruger {
-        width: calc(100% - 24px);
-        padding: 20px;
-    }
-
-    .Bruger form {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    margin-top: 15px;
 }

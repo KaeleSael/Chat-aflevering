@@ -1,31 +1,82 @@
-
-
 doctype html
 html
     head
         title= chat.navn
         link(rel="stylesheet" href="/css/style.css")
+        script(src="/js/chat.js" defer)
+
     body
         main.ChatSide
             section.ChatContainer
 
-                //- Øverste funktioner
-                header.ChatHeader
-                    a.sideButton(href="/forside") Tilbage
+                header.SideHeader.ChatSideHeader
+                    a.sideButton(href="/forside") Tilbage til forsiden
+
                     h1= chat.navn
 
                     if brugerNiveau >= 2 && (brugerNiveau === 3 || chat.ejerId === brugerId)
-                        div.ChatFunktioner
-                            form(action="/chats/" + chat.id + "/rediger" method="POST")
-                                button.sideButton(type="submit") Rediger chat
+                        details.ChatMenu
+                            summary(aria-label="Chatindstillinger") ...
+                            div.ChatMenuIndhold
+                                button.sideButton(type="button" id="aabnRedigerChat") Rediger chat
 
-                            form(action="/chats/" + chat.id + "/slet" method="POST")
-                                button.redButton(type="submit") Slet chat
+                                form(action="/chats/" + chat.id + "/slet" method="POST")
+                                    button.redButton(type="submit") Slet chat
+                    else
+                        span.ChatHeaderSpacer
 
-                //- Linje mellem funktioner og beskeder
-                hr.ChatDivider
+                //- Popup til redigering af chat
+                if brugerNiveau >= 2 && (brugerNiveau === 3 || chat.ejerId === brugerId)
+                    dialog#redigerChatDialog.ChatDialog
+                        form(action="/chats/" + chat.id + "/rediger" method="POST")
+                            header.ChatDialogHeader
+                                h2 Rediger chat
+                                button(type="button" class="LukDialog" data-luk-dialog aria-label="Luk") ×
 
-                //- Beskeder
+                            label(for="chatNavn") Chatnavn
+                            input#chatNavn(
+                                type="text"
+                                name="navn"
+                                value=chat.navn
+                                maxlength="50"
+                                required
+                            )
+
+                            h3 Nuværende medlemmer
+
+                            div.ChatMedlemmerListe
+                                each medlem in chatMedlemmer
+                                    div.ChatMedlem
+                                        span= medlem.username
+
+                                        label.FjernMedlem
+                                            input(
+                                                type="checkbox"
+                                                name="fjernMedlemmer"
+                                                value=medlem.id
+                                            )
+                                            | Fjern
+
+                            h3 Tilføj medlemmer
+
+                            if muligeMedlemmer.length > 0
+                                select(
+                                    name="tilfoejMedlemmer"
+                                    multiple
+                                )
+                                    each bruger in muligeMedlemmer
+                                        option(value=bruger.id)= bruger.username
+
+                                p.Hjaelpetekst Hold Ctrl (Windows) eller Cmd (Mac) nede for at vælge flere.
+                            else
+                                p.Hjaelpetekst Alle eksisterende brugere er allerede medlemmer.
+
+                            footer.ChatDialogFooter
+                                button.sideButton(type="button" data-luk-dialog) Annuller
+                                button.sideButton(type="submit") Gem ændringer
+
+                hr.SideDivider
+
                 section.BeskedListe
                     if chat.beskeder && chat.beskeder.length > 0
                         each besked in chat.beskeder
@@ -36,7 +87,6 @@ html
                     else
                         p.IngenBeskeder Der er endnu ingen beskeder.
 
-                //- Skrivefelt
                 footer.NyBesked
                     form(action="/chats/" + chat.id + "/messages" method="POST")
                         textarea(name="tekst" placeholder="Skriv en besked..." required)

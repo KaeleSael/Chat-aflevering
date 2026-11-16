@@ -3,34 +3,41 @@ html
     head
         title Opret bruger
         link(rel="stylesheet" href="/css/style.css")
+
     body
-        main.login-page
-            section.login-card
-                h1 Opret bruger
+        main.SideContainer
+            header.SideHeader
+                    a.sideButton(href="/") Tilbage til login
+                    h1 Opret bruger
+
+            hr.SideDivider
+
+            section.OpretBrugerIndhold
                 h2 Opret en ny konto
 
-                form(action="/opretBruger" method="POST")
-                    input(
+                form.OpretBrugerForm(action="/opretBruger" method="POST")
+                    label(for="username") Brugernavn
+                    input#username(
                         type="text"
                         name="username"
                         placeholder="Brugernavn"
                         required
                     )
 
-                    input(
+                    label(for="password") Adgangskode
+                    input#password(
                         type="password"
                         name="password"
                         placeholder="Adgangskode"
                         required
                     )
 
-                    input(
+                    label(for="gentagPassword") Gentag adgangskode
+                    input#gentagPassword(
                         type="password"
                         name="gentagPassword"
                         placeholder="Gentag adgangskode"
                         required
                     )
 
-                    button(type="submit") Opret bruger
-
-                a(href="/") Tilbage til login
+                    button.sideButton(type="submit") Opret bruger

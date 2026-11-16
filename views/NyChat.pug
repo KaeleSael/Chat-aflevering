@@ -1,0 +1,38 @@
+doctype html
+html
+    head
+        title Opret ny chat
+        link(rel="stylesheet" href="/css/style.css")
+
+    body
+        main.SideContainer
+            header.SideHeader
+                    a.sideButton(href="/forside") Tilbage til forsiden
+                    h1 Opret ny chat
+
+            hr.SideDivider
+
+            section.NyChatIndhold
+
+                form.NyChatForm(action="/chats" method="POST")
+                    label(for="navn") Chatnavn
+                    input#navn(
+                        type="text"
+                        name="navn"
+                        placeholder="Indtast chatnavn"
+                        required
+                    )
+
+                    label(for="medlemmer") Vælg medlemmer
+                    select#medlemmer(
+                        name="medlemmer"
+                        multiple
+                        required
+                    )
+                        each bruger in brugere
+                            if bruger.id !== brugerId
+                                option(value=bruger.id)= bruger.username
+
+                    p.Hjaelpetekst Hold Ctrl (Windows) eller Cmd (Mac) nede for at vælge flere medlemmer.
+
+                    button.sideButton(type="submit") Opret chat

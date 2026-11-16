@@ -1,4 +1,3 @@
-
 doctype html
 html
     head
@@ -6,24 +5,25 @@ html
         link(rel="stylesheet" href="/css/style.css")
 
     body
-        main.BrugerSide
-            h1 Chat Oversigt
+        main.SideContainer
+            header.SideHeader
+                    span
+                    h1 Chat oversigt
 
-            section.Chat
-                h2 Dine chats:
+                    div.SideHeaderActions
+                        form(action="/logout" method="POST")
+                            button.redButton(type="submit") Log ud
 
-                div.FunktionListe
-                    form(action="/logout" method="POST")
-                        button.sideButton(type="nychat") Ny Chat
+            hr.SideDivider
 
-                    a.sideButton(href="/beskeder") Se alle dine beskeder
+            div.ChatFunktioner
+                a.sideButton(href="/chats/opret") Ny chat
+                a.sideButton(href="/beskeder") Se mine beskeder
 
-                    if brugerNiveau === 3
-                        a.sideButton(href="/brugere") Administrer brugere
+                if brugerNiveau === 3
+                    a.sideButton(href="/brugere") Administrer brugere
 
-                    form(action="/logout" method="POST")
-                        button.sideButton(type="submit") Log ud
-
+            section.ChatOversigtIndhold
                 h2 Dine chats:
 
                 div.ChatListe
