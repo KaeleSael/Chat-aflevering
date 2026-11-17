@@ -26,12 +26,14 @@ app.set('view engine', 'pug');
 // BRUGERFUNKTIONER
 // ================================================================
 
+// Kan også smides i controller, så metoderne der bruger den.**********************************
 // Hent alle brugere fra JSON-filen
 function hentBrugere() {
     const data = fs.readFileSync('./data/brugere.json', 'utf8');
     return JSON.parse(data);
 }
 
+//Den her skal i controller*******************************************************************
 // Gem alle brugere i JSON-filen
 function gemBrugere(brugere) {
     fs.writeFileSync(
@@ -40,6 +42,7 @@ function gemBrugere(brugere) {
     );
 }
 
+//Den her skal i controller*******************************************************************
 // Find den bruger, der er logget ind
 function hentAktuelBruger(req) {
     if (!req.session.brugerId) {
@@ -116,6 +119,7 @@ app.get('/opretBruger', (req,res)=>{
 
 app.post('/opretBruger', opretBruger);
 
+//Den her skal i controller*******************************************************************
 app.post('/login', (req, res) => {
     const brugere = hentBrugere();
 
@@ -141,6 +145,7 @@ app.get('/opretBruger', (req, res) => {
     res.render('OpretBruger');
 });
 
+// Den her skal være i controller************************************************************
 // Opret en ny bruger og gem i JSON
 app.post('/opretBruger', (req, res) => {
     const brugere = hentBrugere();
@@ -214,7 +219,7 @@ app.get('/forside', (req, res) => {
 // ================================================================
 // CHATS
 // ================================================================
-
+//Den her skal i controller*******************************************************************
 app.get('/chats/opret', (req, res) => {
     const bruger = hentAktuelBruger(req);
 
@@ -241,6 +246,7 @@ app.post('/chats', (req, res) => {
     res.send('Her skal vi senere oprette en ny chat.');
 });
 
+//Den her skal i controller*******************************************************************
 // Åbn en bestemt chat
 app.get('/chats/:id', (req, res) => {
     const bruger = hentAktuelBruger(req);
@@ -285,6 +291,7 @@ app.get('/chats/:id', (req, res) => {
 });
 
 
+//Den her skal i controller*******************************************************************
 // Rediger chat
 app.post('/chats/:id/rediger', (req, res) => {
     const bruger = hentAktuelBruger(req);
@@ -369,6 +376,7 @@ app.post('/chats/:id/rediger', (req, res) => {
 // BESKEDER
 // ================================================================
 
+//Den her skal i controller*******************************************************************
 app.get('/beskeder', (req, res) => {
     const bruger = hentAktuelBruger(req);
 
@@ -394,7 +402,7 @@ app.get('/beskeder', (req, res) => {
 // ================================================================
 // ADMINISTRER BRUGERE
 // ================================================================
-
+//Den her skal i controller*******************************************************************
 app.get('/brugere', (req, res) => {
     const bruger = hentAktuelBruger(req);
 
@@ -417,6 +425,7 @@ app.get('/brugere', (req, res) => {
     });
 });
 
+//Den her skal i controller*******************************************************************
 // Ændr brugerniveau
 app.post('/brugere/:id/niveau', (req, res) => {
     const aktuelBruger = hentAktuelBruger(req);
