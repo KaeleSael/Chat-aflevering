@@ -1,22 +1,16 @@
 [
-  {
-    "brugerNavn": "kBrinkkjaer",
-    "password": "Brinkkjaer1919",
-    "id": 1
-  },
-  {
-    "brugerNavn": "Kasper2",
-    "password": "Kasper2",
-    "id": 2
-  },
-  {
-    "brugerNavn": "blablablablablabla",
-    "password": "123",
-    "id": 3
-  },
-  {
-    "brugerNavn": "test1",
-    "password": "test",
-    "id": 1
-  }
+    {
+        "id": 4,
+        "username": "kasper",
+        "password": "Brinkkjaer",
+        "oprettelsesdato": "2026-11-17T11:04:14.756Z",
+        "niveau": 2
+    },
+    {
+        "id": 5,
+        "username": "Maria ",
+        "password": "Bogart123!",
+        "oprettelsesdato": "2026-11-17T11:09:28.031Z",
+        "niveau": 3
+    }
 ]
