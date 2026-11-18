@@ -1,6 +1,7 @@
 // BrugerController.js
 import fs from 'node:fs';
 import { hentAlleDokumenter } from '../services/firestoreService.js';
+import { dekrypterBesked } from '../services/krypteringService.js';
 import { hashPassword, tjekPassword } from '../services/passwordService.js';
 
 // Hent og gem brugere i JSON-filen
@@ -187,7 +188,10 @@ export async function hentBrugerBeskeder(req, res) {
         const beskeder = chats.flatMap(chat =>
             (chat.beskeder || [])
                 .filter(besked => Number(besked.ejerId) === id)
-                .map(besked => ({ ...besked, chatNavn: chat.navn }))
+                .map(besked => ({...besked,
+                    krypteretIndhold: dekrypterBesked(besked.krypteretIndhold),
+                    chatNavn: chat.navn
+                }))
         );
 
         const erEgenSide = aktuel.id === id;

@@ -1,7 +1,14 @@
 import fs from 'node:fs';
 import crypto from 'crypto'
 
+const OFFENTLIG = 'keys/offentlig_noegle.pem';
+const PRIVAT = 'keys/privat_noegle.pem';
+
 export function genererNoegler() {
+    if (fs.existsSync(OFFENTLIG) && fs.existsSync(PRIVAT)) return;
+
+    fs.mkdirSync('keys', { recursive: true });
+
     crypto.generateKeyPair('rsa', {
         modulusLength: 2048,
         publicKeyEncoding: { type: 'pkcs1', format: 'pem' },
@@ -17,6 +24,7 @@ export function genererNoegler() {
 export function krypterBesked(besked) {
     const publicKey = fs.readFileSync('offentlig_noegle.pem', 'utf8');
     const encrypted = crypto.publicEncrypt(publicKey, Buffer.from(besked));
+    console.log('KRYPTERET:', besked, '->', encrypted.toString('base64').slice(0, 30));
     return encrypted.toString('base64');
 }
 
@@ -25,7 +33,3 @@ export function dekrypterBesked(encryptedBase64) {
     const decrypted = crypto.privateDecrypt(privateKey, Buffer.from(encryptedBase64, 'base64'));
     return decrypted.toString();
 }
-
-// export function hashPassword(password) {
-//     return crypto.createHash('sha256').update(password).digest('hex');
-// }

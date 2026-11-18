@@ -3,8 +3,6 @@ import { hentAktuelBruger } from './BrugerController.js';
 import { hentDokument, opdaterDokument } from '../services/firestoreService.js';
 import { Besked } from '../model/Besked.js';
 import { krypterBesked, dekrypterBesked } from '../services/krypteringService.js';
-import { db } from '../config/firebase.js';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const CHAT_COLLECTION = 'chats';
 
@@ -15,7 +13,7 @@ function harAdgangTilChat(bruger, chat) {
     ) || bruger.niveau === 3;
 }
 
-// Hent alle beskeder i en bestemt chat
+// Hent alle beskeder i en bestemt chat (dekrypteret)
 export async function hentBeskeder(req, res) {
     const bruger = hentAktuelBruger(req);
 
@@ -34,7 +32,12 @@ export async function hentBeskeder(req, res) {
             return res.status(403).json({ fejl: 'Du har ikke adgang til chatten' });
         }
 
-        res.json(chat.beskeder || []);
+        const beskeder = (chat.beskeder || []).map(besked => ({
+            ...besked,
+            krypteretIndhold: dekrypterBesked(besked.krypteretIndhold)
+        }));
+
+        res.json(beskeder);
 
     } catch (error) {
         console.error('Fejl ved hentning af beskeder:', error);
@@ -42,7 +45,45 @@ export async function hentBeskeder(req, res) {
     }
 }
 
-// Opret en ny besked i en chat
+// Hent en bestemt besked i en chat (dekrypteret)
+export async function hentBesked(req, res) {
+    const bruger = hentAktuelBruger(req);
+
+    if (!bruger) {
+        return res.status(401).json({ fejl: 'Du skal være logget ind' });
+    }
+
+    try {
+        const chat = await hentDokument(CHAT_COLLECTION, req.params.chatId);
+
+        if (!chat) {
+            return res.status(404).json({ fejl: 'Chatten findes ikke' });
+        }
+
+        if (!harAdgangTilChat(bruger, chat)) {
+            return res.status(403).json({ fejl: 'Du har ikke adgang til chatten' });
+        }
+
+        const besked = (chat.beskeder || []).find(
+            besked => besked.id === req.params.beskedId
+        );
+
+        if (!besked) {
+            return res.status(404).json({ fejl: 'Beskeden findes ikke' });
+        }
+
+        res.json({
+            ...besked,
+            krypteretIndhold: dekrypterBesked(besked.krypteretIndhold)
+        });
+
+    } catch (error) {
+        console.error('Fejl ved hentning af besked:', error);
+        res.status(500).json({ fejl: 'Kunne ikke hente beskeden' });
+    }
+}
+
+// Opret en ny besked i en chat (krypteret i Firestore)
 export async function opretBesked(req, res) {
     const bruger = hentAktuelBruger(req);
 
@@ -69,7 +110,7 @@ export async function opretBesked(req, res) {
         }
 
         const nyBesked = new Besked(
-            indhold.trim(),
+            krypterBesked(indhold.trim()),
             bruger.id,
             chatId,
             randomUUID()
@@ -86,59 +127,16 @@ export async function opretBesked(req, res) {
 
         beskeder.push(gemtBesked);
 
-        await opdaterDokument(CHAT_COLLECTION, chatId, {
-            beskeder
-        });
+        await opdaterDokument(CHAT_COLLECTION, chatId, { beskeder });
 
+        // Svaret får den læsbare tekst, så chat.js kan vise den med det samme
         res.status(201).json({
             besked: 'Beskeden blev oprettet',
-            nyBesked: gemtBesked
+            nyBesked: { ...gemtBesked, krypteretIndhold: indhold.trim() }
         });
 
     } catch (error) {
         console.error('Fejl ved oprettelse af besked:', error);
         res.status(500).json({ fejl: 'Kunne ikke oprette beskeden' });
     }
-}
-
-// bruges til at sende krypteret besked
-export async function sendBesked(req, res) {
-    const { text, afsender } = req.body;
-
-    //Kryptere tekst med den opffentlige nøgle
-    const hemmeligTekst = krypterBesked(text);
-
-    //Gemmer krypterede tekst i Firetore
-    await addDoc(collection(db, 'beskeder'), {
-        afsender: afsender,
-        text: hemmeligTekst,
-        oprettet: new Date(),
-    });
-
-    res.status(201).send('Besked krypteret og gemt i Firestore');
-}
-
-// Bruges til at modtage og dekryptere beskede
-export async function hentBesked(req, res) {
-    const querySnapshot = await getDocs(collection(db, 'beskeder'));
-
-    const beskeder = [];
-
-    querySnapshot.forEach((doc) => {
-        const data = doc.data();
-
-        // Dekrypter teksten tilbage til almindelig læsbar tekst
-        const laesbarTekst = dekrypterBesked(data.tekst);
-
-        beskeder.push({
-            id: doc.id,
-            afsender: data.afsender,
-            tekst: laesbarTekst
-        });
-    });
-    
-    res.json({
-        ...besked,
-        krypteretIndhold: dekrypterBesked(besked.krypteretIndhold)
-    });
 }

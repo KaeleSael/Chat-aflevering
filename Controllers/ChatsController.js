@@ -1,4 +1,5 @@
 import { hentAktuelBruger, hentBrugere } from './BrugerController.js';
+import { dekrypterBesked } from '../services/krypteringService.js';
 
 import {
     hentAlleDokumenter,
@@ -9,6 +10,17 @@ import {
 } from '../services/firestoreService.js';
 
 const CHAT_COLLECTION = 'chats';
+
+// Returnerer chatten med dekrypterede beskeder
+function medDekrypteredeBeskeder(chat) {
+    return {
+        ...chat,
+        beskeder: (chat.beskeder || []).map(besked => ({
+            ...besked,
+            krypteretIndhold: dekrypterBesked(besked.krypteretIndhold)
+        }))
+    };
+}
 
 // Kontroller om brugeren har adgang til en chat
 function harAdgangTilChat(bruger, chat) {
@@ -73,7 +85,7 @@ export async function visChat(req, res) {
         );
 
         res.render('Chat', {
-            chat,
+            chat: medDekrypteredeBeskeder(chat),
             brugerId: bruger.id,
             brugerNiveau: bruger.niveau,
             chatMedlemmer,
@@ -105,7 +117,7 @@ export async function hentAlleChats(req, res) {
         );
 
         res.format({
-            json: () => res.json(brugerChats),
+            json: () => res.json(brugerChats.map(medDekrypteredeBeskeder)),
             html: () => res.render('BrugerForside', {
                 chats: brugerChats,
                 brugerNiveau: bruger.niveau,
@@ -142,7 +154,7 @@ export async function hentChat(req, res) {
             return res.status(403).json({ fejl: 'Du har ikke adgang til denne chat' });
         }
 
-        res.json(chat);
+        res.json(medDekrypteredeBeskeder(chat));
 
     } catch (error) {
         console.error('Fejl ved hentning af chat:', error);
