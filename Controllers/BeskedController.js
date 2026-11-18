@@ -1,7 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { hentAktuelBruger } from './BrugerController.js';
-import {hentDokument,opdaterDokument} from '../services/firestoreService.js';
+import { hentDokument, opdaterDokument } from '../services/firestoreService.js';
 import { Besked } from '../model/Besked.js';
+
+import { krypterBesked, dekrypterBesked } from '../services/krypteringService.js';
+import { db } from '../config/firebase.js';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const CHAT_COLLECTION = 'chats';
 
@@ -132,3 +136,44 @@ export async function opretBesked(req, res) {
         res.status(500).json({ fejl: 'Kunne ikke oprette beskeden' });
     }
 }
+
+// bruges til at sende krypteret besked
+export async function sendBesked(req, res) {
+    const { text, afsender } = req.body;
+
+    //Kryptere tekst med den opffentlige nøgle
+    const hemmeligTekst = krypterBesked(text);
+
+    //Gemmer krypterede tekst i Firetore
+    await addDoc(collection(db, 'beskeder'), {
+        afsender: afsender,
+        text: hemmeligTekst,
+        oprettet: new Date(),
+    });
+
+    res.status(201).send('Besked krypteret og gemt i Firestore');
+}
+
+// Bruges til at modtage og dekryptere beskede
+export async function hentBesked(req, res) {
+    const querySnapshot = await getDocs(collection(db, 'beskeder'));
+
+    const beskeder = [];
+
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+
+        // Dekrypter teksten tilbage til almindelig læsbar tekst
+        const laesbarTekst = dekrypterBesked(data.tekst);
+
+        beskeder.push({
+            id: doc.id,
+            afsender: data.afsender,
+            tekst: laesbarTekst
+        });
+    });
+    
+    res.json(beskeder);
+}
+
+

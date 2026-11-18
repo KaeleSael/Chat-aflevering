@@ -6,8 +6,12 @@ import chatRoutes from './routes/chatRoutes.js';
 import beskedRoutes from './routes/beskedRoutes.js';
 import brugerRoutes from './routes/brugerRoutes.js';
 import forsideRoutes from './routes/forsideRoutes.js';
+import { genererNoegler } from './services/krypteringService.js';
 
 const app = express();
+
+//generer nøglepar til krypetering af beskeder
+genererNoegler();
 
 // Middleware
 app.use(express.static('assets'));
