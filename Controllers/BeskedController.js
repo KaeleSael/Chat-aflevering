@@ -2,7 +2,6 @@ import { randomUUID } from 'node:crypto';
 import { hentAktuelBruger } from './BrugerController.js';
 import { hentDokument, opdaterDokument } from '../services/firestoreService.js';
 import { Besked } from '../model/Besked.js';
-
 import { krypterBesked, dekrypterBesked } from '../services/krypteringService.js';
 import { db } from '../config/firebase.js';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
@@ -40,41 +39,6 @@ export async function hentBeskeder(req, res) {
     } catch (error) {
         console.error('Fejl ved hentning af beskeder:', error);
         res.status(500).json({ fejl: 'Kunne ikke hente beskeder' });
-    }
-}
-
-// Hent en bestemt besked i en chat
-export async function hentBesked(req, res) {
-    const bruger = hentAktuelBruger(req);
-
-    if (!bruger) {
-        return res.status(401).json({ fejl: 'Du skal være logget ind' });
-    }
-
-    try {
-        const chat = await hentDokument(CHAT_COLLECTION, req.params.chatId);
-
-        if (!chat) {
-            return res.status(404).json({ fejl: 'Chatten findes ikke' });
-        }
-
-        if (!harAdgangTilChat(bruger, chat)) {
-            return res.status(403).json({ fejl: 'Du har ikke adgang til chatten' });
-        }
-
-        const besked = (chat.beskeder || []).find(
-            besked => besked.id === req.params.beskedId
-        );
-
-        if (!besked) {
-            return res.status(404).json({ fejl: 'Beskeden findes ikke' });
-        }
-
-        res.json(besked);
-
-    } catch (error) {
-        console.error('Fejl ved hentning af besked:', error);
-        res.status(500).json({ fejl: 'Kunne ikke hente beskeden' });
     }
 }
 
@@ -173,7 +137,8 @@ export async function hentBesked(req, res) {
         });
     });
     
-    res.json(beskeder);
+    res.json({
+        ...besked,
+        krypteretIndhold: dekrypterBesked(besked.krypteretIndhold)
+    });
 }
-
-
