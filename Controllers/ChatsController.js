@@ -1,4 +1,3 @@
-
 import { hentAktuelBruger, hentBrugere } from './BrugerController.js';
 
 import {
@@ -93,7 +92,10 @@ export async function hentAlleChats(req, res) {
         const bruger = hentAktuelBruger(req);
 
         if (!bruger) {
-            return res.status(401).json({ fejl: 'Du skal være logget ind' });
+            return res.format({
+                json: () => res.status(401).json({ fejl: 'Du skal være logget ind' }),
+                html: () => res.redirect('/')
+            });
         }
 
         const alleChats = await hentAlleDokumenter(CHAT_COLLECTION);
@@ -102,7 +104,14 @@ export async function hentAlleChats(req, res) {
             harAdgangTilChat(bruger, chat)
         );
 
-        res.json(brugerChats);
+        res.format({
+            json: () => res.json(brugerChats),
+            html: () => res.render('BrugerForside', {
+                chats: brugerChats,
+                brugerNiveau: bruger.niveau,
+                brugerId: bruger.id
+            })
+        });
 
     } catch (error) {
         console.error('Fejl ved hentning af chats:', error);
@@ -110,8 +119,12 @@ export async function hentAlleChats(req, res) {
     }
 }
 
-// REST: Hent én bestemt chat
+// REST: Hent en bestemt chat
 export async function hentChat(req, res) {
+     // Browseren vil have HTML, fetch vil have JSON
+    if (req.accepts(['json', 'html']) === 'html') {
+        return visChat(req, res);
+    }
     try {
         const bruger = hentAktuelBruger(req);
 

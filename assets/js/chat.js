@@ -1,4 +1,3 @@
-
 const redigerChatDialog = document.getElementById('redigerChatDialog');
 const aabnRedigerChat = document.getElementById('aabnRedigerChat');
 
@@ -26,7 +25,6 @@ if (redigerChatDialog && aabnRedigerChat) {
         }
     });
 }
-
 
 const nyBeskedForm = document.getElementById('nyBeskedForm');
 const beskedListe = document.getElementById('beskedListe');
@@ -83,7 +81,6 @@ if (nyBeskedForm && beskedListe && beskedTekst) {
         }
     });
 }
-
 
 if (beskedListe) {
 
@@ -205,7 +202,7 @@ if (sletKnap) {
         });
 
         if (response.ok) {
-            location.href = '/forside';
+            location.href = '/chats';
         } else {
             const data = await response.json();
             alert(data.fejl);

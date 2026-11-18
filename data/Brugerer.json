@@ -1,37 +1,9 @@
 [
     {
-        "id": 4,
-        "username": "kasper",
-        "password": "Brinkkjaer",
-        "oprettelsesdato": "2026-11-17T11:04:14.756Z",
-        "niveau": 3
-    },
-    {
-        "id": 5,
-        "username": "Maria",
-        "password": "Bogart123!",
-        "oprettelsesdato": "2026-11-17T11:09:28.031Z",
-        "niveau": 2
-    },
-    {
-        "id": 6,
+        "id": 1,
         "username": "minik",
-        "password": "123",
-        "oprettelsesdato": "2026-11-17T14:57:52.196Z",
+        "password": "d9cdd0457eb498cc6dc9350dc425486a:0e9bc43bd8b6b67e64a565a85aec273c6b6b64e3919cd366b100fc38ed6b776c",
+        "oprettelsesdato": "2026-11-18T11:42:42.157Z",
         "niveau": 3
-    },
-    {
-        "id": 7,
-        "username": "testniv1",
-        "password": "123",
-        "oprettelsesdato": "2026-11-17T21:24:19.685Z",
-        "niveau": 1
-    },
-    {
-        "id": 8,
-        "username": "testniv2",
-        "password": "123",
-        "oprettelsesdato": "2026-11-18T07:29:39.623Z",
-        "niveau": 2
     }
 ]

@@ -1,7 +1,6 @@
 import express from 'express';
 import {
     visOpretChat,
-    visChat,
     hentAlleChats,
     hentChat,
     opretChat,
@@ -13,7 +12,6 @@ const router = express.Router();
 
 // Pug-sider
 router.get('/chats/opret', visOpretChat);
-router.get('/chat/:id', visChat);
 
 // RESTful API
 router.get('/chats', hentAlleChats);

@@ -1,10 +1,7 @@
-
 /* =========================================================
    GENERELT
 ========================================================= */
-
-* {
-    box-sizing: border-box;
+* {box-sizing: border-box;
 }
 
 body {
@@ -19,10 +16,7 @@ h1, h2, h3, p {
     margin-top: 0;
 }
 
-button,
-input,
-textarea,
-select {
+button,input,textarea,select {
     font: inherit;
 }
 
@@ -35,7 +29,6 @@ a {
 /* =========================================================
    FÆLLES SIDEOPBYGNING
 ========================================================= */
-
 .SideContainer {
     width: min(1100px, calc(100% - 60px));
     min-height: 650px;
@@ -45,7 +38,6 @@ a {
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
-
 
 .SideHeader {
     display: grid;
@@ -80,14 +72,10 @@ a {
     flex: 0 0 150px;
 }
 
-
-
 /* =========================================================
    KNAPPER
 ========================================================= */
-
-.sideButton,
-.redButton {
+.sideButton, .redButton {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -127,7 +115,6 @@ a {
 /* =========================================================
    LOGIN
 ========================================================= */
-
 .login-page {
     display: flex;
     flex-direction: column;
@@ -159,9 +146,7 @@ a {
     gap: 15px;
 }
 
-.login-card input,
-.NyChatForm input,
-.OpretBrugerForm input {
+.login-card input, .NyChatForm input, .OpretBrugerForm input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -169,10 +154,7 @@ a {
     outline: none;
 }
 
-.login-card input:focus,
-.NyChatForm input:focus,
-.OpretBrugerForm input:focus,
-.NyBesked textarea:focus {
+.login-card input:focus, .NyChatForm input:focus, .OpretBrugerForm input:focus, .NyBesked textarea:focus {
     border-color: #23d82c;
 }
 
@@ -206,11 +188,9 @@ a {
     color: #b83b3b;
 }
 
-
 /* =========================================================
    BRUGERFORSIDE
 ========================================================= */
-
 .ChatFunktioner {
     display: flex;
     flex-wrap: wrap;
@@ -243,11 +223,9 @@ a {
     background-color: #eaeaea;
 }
 
-
 /* =========================================================
    CHAT
 ========================================================= */
-
 .ChatSide {
     display: flex;
     justify-content: center;
@@ -344,11 +322,9 @@ a {
     flex-shrink: 0;
 }
 
-
 /* =========================================================
    ADMINISTRER BRUGERE
 ========================================================= */
-
 .BrugerListe {
     display: flex;
     flex-direction: column;
@@ -386,18 +362,15 @@ a {
     background-color: white;
 }
 
-
 /* =========================================================
    OPRET NY CHAT
 ========================================================= */
-
 .NyChatIndhold {
     width: 100%;
     max-width: 750px;
 }
 
-.NyChatIndhold h2,
-.OpretBrugerIndhold h2 {
+.NyChatIndhold h2, .OpretBrugerIndhold h2 {
     margin-bottom: 25px;
 }
 
@@ -407,8 +380,7 @@ a {
     gap: 12px;
 }
 
-.NyChatForm label,
-.OpretBrugerForm label {
+.NyChatForm label, .OpretBrugerForm label {
     margin-top: 8px;
     font-size: 14px;
     font-weight: bold;
@@ -430,11 +402,9 @@ a {
     font-size: 12px;
 }
 
-
 /* =========================================================
    OPRET BRUGER
 ========================================================= */
-
 .OpretBrugerIndhold {
     width: 100%;
     max-width: 550px;
@@ -452,11 +422,9 @@ a {
     margin-top: 15px;
 }
 
-
 /* =========================================================
    MINE BESKEDER
 ========================================================= */
-
 .MineBeskederListe {
     display: flex;
     flex-direction: column;
@@ -486,8 +454,7 @@ a {
     font-size: 18px;
 }
 
-.MineBeskedHeader small,
-.BeskedAfsender {
+.MineBeskedHeader small, .BeskedAfsender {
     color: #777;
     font-size: 13px;
 }
@@ -514,9 +481,9 @@ a {
     color: #777;
 }
 
-
-/* CHAT HEADER */
-
+/* =========================================================
+   CHAT HEADER
+========================================================= */
 .ChatSideHeader {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -535,8 +502,9 @@ a {
     justify-self: end;
 }
 
-/* CHAT MENU */
-
+/* =========================================================
+   CHAT MENU
+========================================================= */
 .ChatMenu {
     position: relative;
     justify-self: end;
@@ -588,7 +556,6 @@ a {
 .ChatMenuIndhold button {
     width: 100%;
 }
-
 
 /* =========================================================
    REDIGER CHAT POPUP

@@ -1,13 +1,6 @@
-
 import { randomUUID } from 'node:crypto';
-
 import { hentAktuelBruger } from './BrugerController.js';
-
-import {
-    hentDokument,
-    opdaterDokument
-} from '../services/firestoreService.js';
-
+import {hentDokument,opdaterDokument} from '../services/firestoreService.js';
 import { Besked } from '../model/Besked.js';
 
 const CHAT_COLLECTION = 'chats';
@@ -17,38 +10,6 @@ function harAdgangTilChat(bruger, chat) {
     return chat.medlemmer?.some(
         medlemId => String(medlemId) === String(bruger.id)
     ) || bruger.niveau === 3;
-}
-
-// Vis den indloggede brugers egne beskeder
-export async function visBeskeder(req, res) {
-    const bruger = hentAktuelBruger(req);
-
-    if (!bruger) {
-        return res.redirect('/');
-    }
-
-    try {
-        const { hentAlleDokumenter } = await import('../services/firestoreService.js');
-
-        const chats = await hentAlleDokumenter(CHAT_COLLECTION);
-
-        const beskeder = chats.flatMap(chat =>
-            (chat.beskeder || [])
-                .filter(besked =>
-                    String(besked.ejerId) === String(bruger.id)
-                )
-                .map(besked => ({
-                    ...besked,
-                    chatNavn: chat.navn
-                }))
-        );
-
-        res.render('SeDineBeskeder', { beskeder });
-
-    } catch (error) {
-        console.error('Fejl ved hentning af beskeder:', error);
-        res.status(500).send('Kunne ikke hente dine beskeder');
-    }
 }
 
 // Hent alle beskeder i en bestemt chat

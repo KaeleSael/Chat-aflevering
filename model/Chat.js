@@ -1,4 +1,3 @@
-
 export class Chat {
 
     constructor(navn, ejerId, medlemmer = [], id = null, oprettelsesDato = new Date()) {

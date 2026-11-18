@@ -1,4 +1,3 @@
-
 export class Besked {
 
     constructor(krypteretIndhold, ejerId, chatId, id = null, oprettelsesDato = new Date()) {

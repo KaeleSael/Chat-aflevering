@@ -8,8 +8,11 @@ html
     body
         main.SideContainer
             header.SideHeader
-                    a.sideButton(href="/forside") Tilbage til forsiden
+                    a.sideButton(href="/chats") Tilbage til forsiden
                     h1 Opret ny chat
+                    div.SideHeaderActions
+                        form(action="/logout" method="POST")
+                            button.redButton(type="submit") Log ud
 
             hr.SideDivider
 

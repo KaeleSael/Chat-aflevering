@@ -18,7 +18,7 @@ form.addEventListener('submit', async event => {
     const data = await response.json();
 
     if (response.ok) {
-        location.href = '/chat/' + data.id;
+        location.href = '/chats/' + data.id;
     } else {
         alert(data.fejl);
     }

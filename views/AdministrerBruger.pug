@@ -7,8 +7,11 @@ html
     body
         main.SideContainer
             header.SideHeader
-                    a.sideButton(href="/forside") Tilbage til forsiden
+                    a.sideButton(href="/chats") Tilbage til forsiden
                     h1 Administrer brugere
+                    div.SideHeaderActions
+                        form(action="/logout" method="POST")
+                            button.redButton(type="submit") Log ud                    
 
             hr.SideDivider
 
@@ -20,7 +23,7 @@ html
                             p Bruger-ID: #{bruger.id}
                             p Adgangsniveau: #{bruger.niveau}
 
-                            form(action="/brugere/" + bruger.id + "/niveau" method="POST")
+                            form(action="/users/" + bruger.id + "/niveau" method="POST")
                                 label(for="niveau-" + bruger.id) Ændr adgangsniveau:
 
                                 select(name="niveau" id="niveau-" + bruger.id)

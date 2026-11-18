@@ -19,10 +19,10 @@ html
             div.ChatFunktioner
                 if brugerNiveau >= 2
                     a.sideButton(href="/chats/opret") Ny chat
-                a.sideButton(href="/beskeder") Se mine beskeder
+                a.sideButton(href="/users/" + brugerId + "/messages") Se mine beskeder
 
                 if brugerNiveau === 3
-                    a.sideButton(href="/brugere") Administrer brugere
+                    a.sideButton(href="/users") Administrer brugere
 
             section.ChatOversigtIndhold
                 h2 Dine chats:
@@ -30,6 +30,6 @@ html
                 div.ChatListe
                     if chats && chats.length > 0
                         each chat in chats
-                            a.chatButton(href="/chat/" + chat.id)= chat.navn
+                            a.chatButton(href="/chats/" + chat.id)= chat.navn
                     else
                         p Du har endnu ikke skrevet nogen chats.
