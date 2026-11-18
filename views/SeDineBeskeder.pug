@@ -18,9 +18,9 @@ html
                         div.MineBeskedKort
                             div.MineBeskedHeader
                                 h2= besked.chatNavn
-                                small= besked.dato
+                                small= new Date(besked.oprettelsesDato).toLocaleString('da-DK')
 
-                            p= besked.tekst
+                            p= besked.krypteretIndhold
 
                             small.BeskedAfsender
                                 | Skrevet af: #{besked.ejerNavn}

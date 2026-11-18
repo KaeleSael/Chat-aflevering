@@ -4,13 +4,34 @@
         "username": "kasper",
         "password": "Brinkkjaer",
         "oprettelsesdato": "2026-11-17T11:04:14.756Z",
-        "niveau": 2
+        "niveau": 3
     },
     {
         "id": 5,
-        "username": "Maria ",
+        "username": "Maria",
         "password": "Bogart123!",
         "oprettelsesdato": "2026-11-17T11:09:28.031Z",
+        "niveau": 2
+    },
+    {
+        "id": 6,
+        "username": "minik",
+        "password": "123",
+        "oprettelsesdato": "2026-11-17T14:57:52.196Z",
         "niveau": 3
+    },
+    {
+        "id": 7,
+        "username": "testniv1",
+        "password": "123",
+        "oprettelsesdato": "2026-11-17T21:24:19.685Z",
+        "niveau": 1
+    },
+    {
+        "id": 8,
+        "username": "testniv2",
+        "password": "123",
+        "oprettelsesdato": "2026-11-18T07:29:39.623Z",
+        "niveau": 2
     }
 ]

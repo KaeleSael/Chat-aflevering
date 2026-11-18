@@ -20,15 +20,14 @@ html
                             div.ChatMenuIndhold
                                 button.sideButton(type="button" id="aabnRedigerChat") Rediger chat
 
-                                form(action="/chats/" + chat.id + "/slet" method="POST")
-                                    button.redButton(type="submit") Slet chat
+                                button.redButton(type="button" id="sletChat") Slet chat
                     else
                         span.ChatHeaderSpacer
 
                 //- Popup til redigering af chat
                 if brugerNiveau >= 2 && (brugerNiveau === 3 || chat.ejerId === brugerId)
                     dialog#redigerChatDialog.ChatDialog
-                        form(action="/chats/" + chat.id + "/rediger" method="POST")
+                        form#redigerChatForm
                             header.ChatDialogHeader
                                 h2 Rediger chat
                                 button(type="button" class="LukDialog" data-luk-dialog aria-label="Luk") ×
@@ -77,17 +76,19 @@ html
 
                 hr.SideDivider
 
-                section.BeskedListe
+                
+                section.BeskedListe#beskedListe(data-chat-id=chat.id data-bruger-id=brugerId)
                     if chat.beskeder && chat.beskeder.length > 0
                         each besked in chat.beskeder
-                            div(class=besked.ejerId === brugerId ? "Besked MinBesked" : "Besked AndreBesked")
-                                p= besked.tekst
+                            div(class=String(besked.ejerId) === String(brugerId) ? "Besked MinBesked" : "Besked AndreBesked")
+                                p= besked.krypteretIndhold
                                 small
-                                    | #{besked.ejerNavn} · #{besked.dato}
+                                    | #{besked.ejerNavn || 'Ukendt bruger'} · #{new Date(besked.oprettelsesDato).toLocaleString('da-DK', { dateStyle: 'short', timeStyle: 'short' })}
+
                     else
                         p.IngenBeskeder Der er endnu ingen beskeder.
 
                 footer.NyBesked
-                    form(action="/chats/" + chat.id + "/messages" method="POST")
-                        textarea(name="tekst" placeholder="Skriv en besked..." required)
+                    form#nyBeskedForm(action="/chats/" + chat.id + "/messages" method="POST")
+                        textarea#beskedTekst(name="besked" placeholder="Skriv en besked..." required)
                         button.sideButton(type="submit") Send

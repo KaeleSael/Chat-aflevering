@@ -1,12 +1,33 @@
-class Chat {
-    static antalChats = 0;
-    
-    constructor(navn, ejer){
-        Chat.antalChats++;
-        this.id = Chat.antalChats;
+
+export class Chat {
+
+    constructor(navn, ejerId, medlemmer = [], id = null, oprettelsesDato = new Date()) {
+        this.id = id;
         this.navn = navn;
-        this.oprettelsesdato = new Date();  
-        this.ejer = ejer;
+        this.oprettelsesDato = oprettelsesDato;
+        this.ejerId = ejerId;
+        this.medlemmer = medlemmer;
         this.beskeder = [];
+    }
+
+    static fraFirestore(id, data) {
+        return new Chat(
+            data.navn,
+            data.ejerId,
+            data.medlemmer || [],
+            id,
+            data.oprettelsesDato?.toDate
+                ? data.oprettelsesDato.toDate()
+                : data.oprettelsesDato
+        );
+    }
+
+    tilFirestore() {
+        return {
+            navn: this.navn,
+            oprettelsesDato: this.oprettelsesDato,
+            ejerId: this.ejerId,
+            medlemmer: this.medlemmer
+        };
     }
 }

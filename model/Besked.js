@@ -1,16 +1,32 @@
-// En besked består af et: 
-// id, en besked, en oprettelsesdato, en ejer og et chattilhørsforhold
 
-class Besked {
-    
-    static antalBeskeder = 0;
+export class Besked {
 
-    constructor(besked, ejer, chatId) {
-        Besked.antalBeskeder++ // beskedens eget unikke nummer
-        this.id = Besked.antalBeskeder;
-        this.besked = besked;
-        this.oprettelsesDato = new Date();
-        this.ejer = ejer;
-        this.chatId = chatId; // id for char besked ligger i -> chattilhørsforhold
+    constructor(krypteretIndhold, ejerId, chatId, id = null, oprettelsesDato = new Date()) {
+        this.id = id;
+        this.krypteretIndhold = krypteretIndhold;
+        this.oprettelsesDato = oprettelsesDato;
+        this.ejerId = ejerId;
+        this.chatId = chatId;
+    }
+
+    static fraFirestore(id, data) {
+        return new Besked(
+            data.krypteretIndhold,
+            data.ejerId,
+            data.chatId,
+            id,
+            data.oprettelsesDato?.toDate
+                ? data.oprettelsesDato.toDate()
+                : data.oprettelsesDato
+        );
+    }
+
+    tilFirestore() {
+        return {
+            krypteretIndhold: this.krypteretIndhold,
+            oprettelsesDato: this.oprettelsesDato,
+            ejerId: this.ejerId,
+            chatId: this.chatId
+        };
     }
 }

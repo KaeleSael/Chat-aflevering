@@ -1,5 +1,6 @@
 // BrugerController.js
 import fs from 'node:fs';
+import { hentAlleDokumenter } from '../services/firestoreService.js';
 
 // Hent og gem brugere i JSON-filen
 export function hentBrugere() {
@@ -137,4 +138,65 @@ export function aendreBrugerniveau(req, res) {
     bruger.niveau = nytNiveau;
     gemBrugere(brugere);
     res.redirect('/brugere');
+}
+// GET /users
+export function hentAlleBrugere(req, res) {
+    const aktuel = hentAktuelBruger(req);
+
+    if (!aktuel) return res.status(401).json({ fejl: 'Du skal være logget ind' });
+    if (aktuel.niveau !== 3) return res.status(403).json({ fejl: 'Du har ikke adgang' });
+
+    res.json(hentBrugere().map(({ password, ...bruger }) => bruger));
+}
+
+// GET /users/:id
+export function hentBruger(req, res) {
+    const aktuel = hentAktuelBruger(req);
+
+    if (!aktuel) return res.status(401).json({ fejl: 'Du skal være logget ind' });
+    if (aktuel.niveau !== 3) return res.status(403).json({ fejl: 'Du har ikke adgang' });
+
+    const fundet = hentBrugere().find(b => b.id === Number(req.params.id));
+
+    if (!fundet) return res.status(404).json({ fejl: 'Brugeren findes ikke' });
+
+    const { password, ...udenPassword } = fundet;
+    res.json(udenPassword);
+}
+
+// GET /users/:id/messages
+export async function hentBrugerBeskeder(req, res) {
+    const aktuel = hentAktuelBruger(req);
+
+    if (!aktuel) return res.status(401).json({ fejl: 'Du skal være logget ind' });
+
+    const id = Number(req.params.id);
+
+    if (aktuel.niveau !== 3 && aktuel.id !== id) {
+        return res.status(403).json({ fejl: 'Du har ikke adgang' });
+    }
+
+    if (!hentBrugere().some(b => b.id === id)) {
+        return res.status(404).json({ fejl: 'Brugeren findes ikke' });
+    }
+
+    try {
+        const chats = await hentAlleDokumenter('chats');
+
+        const beskeder = chats.flatMap(chat =>
+            (chat.beskeder || [])
+                .filter(besked => Number(besked.ejerId) === id)
+                .map(besked => ({ ...besked, chatNavn: chat.navn }))
+        );
+
+        res.json(beskeder);
+
+    } catch (error) {
+        console.error('Fejl ved hentning af brugerens beskeder:', error);
+        res.status(500).json({ fejl: 'Kunne ikke hente beskeder' });
+    }
+}
+// Log brugeren ud
+export function logout(req, res) {
+    req.session.destroy(() => res.redirect('/'));
 }
